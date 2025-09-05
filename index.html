@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Meteo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Weather Dashboard</h1>
+            <input type="text" id="input-city" placeholder="Research your town">
+            <button id="search-button">search</button>
+            <button id="convertion">C° to F°</button>
+        </nav>
+    </header>
+    <main>
+        <div class="info">
+            <div id="city"></div>
+            <div id="country"></div>
+            <div id="dateOfToday"></div>
+            <div id="hoursOfToday"></div>
+        </div>
+        <section id="MeteoOfToday">
+            <div id="temperature"></div>
+            <div id="condition"><img id="image-condition"></div>
+            <div id="wind"></div>
+            <div id="humidity"></div>
+            <div id="cloud"></div>
+            <div id="feelslike"></div>
+            <div id="uv"></div>
+        </section>
+        
+        <section id="meteoOf14Day" class="scroll-container">
+
+        </section>
+        
+        <section id="hours">
+
+        </section>
+
+        <button id="Dayly14">Dayly for 14 day !!!</button>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

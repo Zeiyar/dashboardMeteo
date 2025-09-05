@@ -1,0 +1,151 @@
+*{
+    box-sizing :border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --dashboard: #1e1e2f;
+    --header: #121223;
+    --case : beige;
+    --background-card-meteo: #2c2c44;
+    --text-card-meteo: white; 
+    --text : #b0bec5;
+}
+
+body{
+    text-align: center;
+    background-color: var(--dashboard);
+}
+nav{
+    background-color: var(--header);
+    color: var(--text);
+    padding: 2%;
+    height: 140px;
+    width: 100%;
+}
+main{
+    color: #b0bec5;
+    padding-top: 40px;
+    font-size: x-large;
+}
+.meteo14Day{
+    min-width: 150px;
+    max-width: 150px;
+    background: var(--background-card-meteo) ;
+    color: var(--text-card-meteo);
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.meteo14Day img {
+  width: 60px;
+  height: 60px;
+}
+.scroll-container{
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 1rem;
+}
+.scroll-container::-webkit-scrollbar{
+    height: 8px;
+}
+.scroll-container::-webkit-scrollbar-thumb{
+    background: #888;
+    border-radius: 4px;
+}
+.scroll-container::-webkit-scrollbar:hover{
+    background: #555;
+}
+
+.hidding{
+    display: none;
+}
+
+input,button{
+    margin: 1%;
+}
+
+.info{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 0 10px 20px 10px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    text-decoration: underline;
+    font-size: xx-large;
+}
+
+h1{
+    color:var(--case);
+    font-size: 50px;
+}
+
+.meteo14Day:hover  {
+    cursor: pointer;
+    opacity: 0.8;  
+}
+.meteo14Day:active{
+    background-color: #1e1e2f;
+}
+.meteo14Day:visited{
+    background-color: #4fc3f7;
+}
+
+#hours {
+  display: flex;
+  overflow-x: auto; /* scroll horizontal */
+  gap: 1rem;        /* espace entre les cartes */
+  padding: 1rem 0;
+  margin-top: 1rem;
+}
+
+/* Scrollbar stylée */
+#hours::-webkit-scrollbar {
+  height: 8px;
+}
+#hours::-webkit-scrollbar-thumb {
+  background-color: #4fc3f7;
+  border-radius: 4px;
+}
+#hours::-webkit-scrollbar-track {
+  background: #1e1e2f;
+  border-radius: 4px;
+}
+
+/* Carte horaire */
+.hours {
+  flex: 0 0 auto;       /* empêche la carte de se rétrécir */
+  width: 100px;
+  background: #2c2c44;
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.hours:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+}
+
+.hours img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.3rem;
+}
+
+img{
+    height: 150px;
+    width: 150px;
+}
