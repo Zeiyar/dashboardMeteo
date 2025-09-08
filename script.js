@@ -36,7 +36,7 @@ const setTown = (ville) =>{
 }
 
 // horloge en fonction du pays
-const updateClockWithTimezone = (tz) => {
+const updateClockWithTimezone = () => {
     const now = new Date();
     const options = {
         weekday: "long",
@@ -46,12 +46,12 @@ const updateClockWithTimezone = (tz) => {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
-        timeZone: tz
+        timeZone: currentTimezone
     };
     const localTime = now.toLocaleString("en-GB", options);
     dateOfToday.textContent = localTime;
 };
-
+setInterval(() => updateClockWithTimezone(), 1000);
 //mis a jour des infos pour la date d aujourdhui
 window.onload = () => {
     setTown(localStorage.getItem("maville")||"Paris");
@@ -72,7 +72,7 @@ const updateMeteo = (api) => {
             cloud.textContent = `☁️${data.current.cloud}%`
             feelslike.textContent = `Feels like : ${deg ? data.current.feelslike_c : data.current.feelslike_f}°`
             uv.textContent = `${data.current.uv} UV`
-            setInterval(() => updateClockWithTimezone(data.location.tz_id), 1000);
+            currentTimezone = data.location.tz_id;
         })
         .catch(err => console.error("error Api current", err))
 }
@@ -81,7 +81,7 @@ const updateMeteo = (api) => {
 const updateMeteoDaily = (api) => {
     meteoOf14Day.innerHTML = "";
     buttonDayly14.textContent="Minus";
-    meteoOfToday.classList.toggle("hidding");
+    meteoOfToday.classList.add("hidding");
     fetch(api)
         .then(Response => Response.json())
         .then(data => {
@@ -135,9 +135,11 @@ buttonSearch.addEventListener("click",()=>{
     if (inputCity.value===""){
         alert("please research a city of your choice");
     }
-    else{
-    localStorage.setItem("maville",inputCity.value);
-    setTown(localStorage.getItem("maville"));
+    else {
+        meteoOfToday.classList.remove("hidding");
+        if(!toggleIsTrue) buttonDayly14.click();
+        localStorage.setItem("maville",inputCity.value);
+        setTown(localStorage.getItem("maville"));
 }
 })
 
@@ -150,22 +152,23 @@ buttonDayly14.addEventListener("click",()=>{
     meteoOf14Day.innerHTML = "";
     toggleIsTrue = true;
     buttonDayly14.textContent="Dayly for 14 day !!!";
-    meteoOfToday.classList.toggle("hidding");
+    meteoOfToday.classList.remove("hidding");
     hoursSection.innerHTML = "";
 }
 })
 
 convertionBtn.addEventListener("click",()=>{
     if(deg){
-        deg = localStorage.getItem("degorfar")==="true";
         localStorage.setItem("degorfar",false);
+        deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "F° to C°";
+        buttonDayly14.click()
     } else {
         localStorage.setItem("degorfar",true);
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "C° to F°";
+        buttonDayly14.click()
     }
-
 })
