@@ -25,7 +25,7 @@ const meteoOf14Day = document.getElementById("meteoOf14Day");
 const hoursSection = document.getElementById("hours");
 
 //valeur de convertion et de toggle
-let toggleIsTrue = true;
+let isDailyOpen = false;
 localStorage.setItem("degorfar",true)
 let deg = true;
 let i = 0;
@@ -80,8 +80,6 @@ const updateMeteo = (api) => {
 //pour 14 jours
 const updateMeteoDaily = (api) => {
     meteoOf14Day.innerHTML = "";
-    buttonDayly14.textContent="Minus";
-    meteoOfToday.classList.add("hidding");
     fetch(api)
         .then(Response => Response.json())
         .then(data => {
@@ -137,24 +135,16 @@ buttonSearch.addEventListener("click",()=>{
     }
     else {
         meteoOfToday.classList.remove("hidding");
-        toggleDaily()
+        if (isDailyOpen) {
+            toggleDaily();
+        }
         localStorage.setItem("maville",inputCity.value);
         setTown(localStorage.getItem("maville"));
 }
 })
 
 buttonDayly14.addEventListener("click",()=>{
-    if(toggleIsTrue){
-    updateMeteoDaily(`https://api.weatherapi.com/v1/forecast.json?key=374547ebcd3e48ff973140713250409&q=${localStorage.getItem("maville")}&days=14&aqi=yes&alerts=yes`);
-    toggleIsTrue = false;
-    
-}   else{
-    meteoOf14Day.innerHTML = "";
-    toggleIsTrue = true;
-    buttonDayly14.textContent="Dayly for 14 day !!!";
-    meteoOfToday.classList.remove("hidding");
-    hoursSection.innerHTML = "";
-}
+    toggleDaily(`https://api.weatherapi.com/v1/forecast.json?key=374547ebcd3e48ff973140713250409&q=${localStorage.getItem("maville")}&days=14&aqi=yes&alerts=yes`);
 })
 
 convertionBtn.addEventListener("click",()=>{
@@ -163,22 +153,32 @@ convertionBtn.addEventListener("click",()=>{
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "F° to C°";
-        toggleDaily()
+        if (isDailyOpen) {
+            toggleDaily();
+        }
     } else {
         localStorage.setItem("degorfar",true);
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "C° to F°";
-        toggleDaily()
+        if (isDailyOpen) {
+            toggleDaily();
+        }
     }
 
 })
 
-const toggleDaily = () => {
-    if(!toggleIsTrue){
+function toggleDaily(data) {
+    if (isDailyOpen) {
         meteoOf14Day.innerHTML = "";
-        toggleIsTrue = true;
-        buttonDayly14.textContent="Dayly for 14 day !!!";
         meteoOfToday.classList.remove("hidding");
-        hoursSection.innerHTML = ""};
+        buttonDayly14.textContent = "Daily for 14 days !!!";
+        hoursSection.innerHTML = "";
+    } else {
+        updateMeteoDaily(data);
+        meteoOfToday.classList.add("hidding");
+        buttonDayly14.textContent = "Minus";
+    }
+    isDailyOpen = !isDailyOpen;
+}
 
