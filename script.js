@@ -32,7 +32,7 @@ let i = 0;
 // valeur de base du dashboard
 const setTown = (ville) =>{
     localStorage.setItem("maville",ville)
-    updateMeteo(`http://api.weatherapi.com/v1/forecast.json?key=374547ebcd3e48ff973140713250409&q=${ville}&aqi=yes&alerts=yes`)
+    updateMeteo(`https://api.weatherapi.com/v1/forecast.json?key=374547ebcd3e48ff973140713250409&q=${ville}&aqi=yes&alerts=yes`)
 }
 
 // horloge en fonction du pays
@@ -143,7 +143,7 @@ buttonSearch.addEventListener("click",()=>{
 
 buttonDayly14.addEventListener("click",()=>{
     if(toggleIsTrue){
-    updateMeteoDaily(`http://api.weatherapi.com/v1/forecast.json?key=374547ebcd3e48ff973140713250409&q=${localStorage.getItem("maville")}&days=14&aqi=yes&alerts=yes`);
+    updateMeteoDaily(`https://api.weatherapi.com/v1/forecast.json?key=374547ebcd3e48ff973140713250409&q=${localStorage.getItem("maville")}&days=14&aqi=yes&alerts=yes`);
     toggleIsTrue = false;
     
 }   else{
@@ -167,4 +167,5 @@ convertionBtn.addEventListener("click",()=>{
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "C° to F°";
     }
+
 })
