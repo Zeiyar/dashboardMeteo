@@ -163,12 +163,13 @@ convertionBtn.addEventListener("click",()=>{
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "F° to C°";
-        buttonDayly14.click()
+        if(!toggleIsTrue) buttonDayly14.click();
     } else {
         localStorage.setItem("degorfar",true);
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "C° to F°";
-        buttonDayly14.click()
+        if(!toggleIsTrue) buttonDayly14.click();
     }
+
 })
