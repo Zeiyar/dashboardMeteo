@@ -137,12 +137,7 @@ buttonSearch.addEventListener("click",()=>{
     }
     else {
         meteoOfToday.classList.remove("hidding");
-        if(!toggleIsTrue){
-            meteoOf14Day.innerHTML = "";
-    toggleIsTrue = true;
-    buttonDayly14.textContent="Dayly for 14 day !!!";
-    meteoOfToday.classList.remove("hidding");
-    hoursSection.innerHTML = ""};
+        toggleDaily()
         localStorage.setItem("maville",inputCity.value);
         setTown(localStorage.getItem("maville"));
 }
@@ -168,25 +163,22 @@ convertionBtn.addEventListener("click",()=>{
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "F° to C°";
-        if(!toggleIsTrue){
-            meteoOf14Day.innerHTML = "";
-    toggleIsTrue = true;
-    buttonDayly14.textContent="Dayly for 14 day !!!";
-    meteoOfToday.classList.remove("hidding");
-    hoursSection.innerHTML = ""};
+        toggleDaily()
     } else {
         localStorage.setItem("degorfar",true);
         deg = localStorage.getItem("degorfar")==="true";
         setTown(localStorage.getItem("maville")||"Paris");
         convertionBtn.textContent = "C° to F°";
-        if(!toggleIsTrue){
-            meteoOf14Day.innerHTML = "";
-    toggleIsTrue = true;
-    buttonDayly14.textContent="Dayly for 14 day !!!";
-    meteoOfToday.classList.remove("hidding");
-    hoursSection.innerHTML = ""};
+        toggleDaily()
     }
 
 })
 
+const toggleDaily = () => {
+    if(!toggleIsTrue){
+        meteoOf14Day.innerHTML = "";
+        toggleIsTrue = true;
+        buttonDayly14.textContent="Dayly for 14 day !!!";
+        meteoOfToday.classList.remove("hidding");
+        hoursSection.innerHTML = ""};
 
